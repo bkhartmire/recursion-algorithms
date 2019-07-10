@@ -28,7 +28,55 @@ class RobotPaths {
   }
 
   solve() {
-    // Your code here.
+    let result = 0;
+    const path = this;
+    const recurse = (row, col) => {
+      let finishedPath = false;
+      if (row === path.board.board.length - 1 && col === row) {
+        result++;
+        finishedPath = true;
+      }
+      if (!finishedPath) {
+        const possibleMoves = path.getPossibleMoves(row, col);
+        possibleMoves.forEach((obj) => {
+          path.board.togglePiece(obj.row, obj.col);
+          recurse(obj.row, obj.col);
+        });
+      }
+      path.board.togglePiece(row, col);
+    };
+    this.board.togglePiece(0, 0);
+    recurse(0, 0);
+    return result;
+  }
+
+  getPossibleMoves(currentRow, currentCol) {
+    const possibleMoves = [];
+    if (
+      currentCol > 0 &&
+      !this.board.hasBeenVisited(currentRow, currentCol - 1)
+    ) {
+      possibleMoves.push({ row: currentRow, col: currentCol - 1 });
+    }
+    if (
+      currentCol < this.board.board.length - 1 &&
+      !this.board.hasBeenVisited(currentRow, currentCol + 1)
+    ) {
+      possibleMoves.push({ row: currentRow, col: currentCol + 1 });
+    }
+    if (
+      currentRow > 0 &&
+      !this.board.hasBeenVisited(currentRow - 1, currentCol)
+    ) {
+      possibleMoves.push({ row: currentRow - 1, col: currentCol });
+    }
+    if (
+      currentRow < this.board.board.length - 1 &&
+      !this.board.hasBeenVisited(currentRow + 1, currentCol)
+    ) {
+      possibleMoves.push({ row: currentRow + 1, col: currentCol });
+    }
+    return possibleMoves;
   }
 }
 
