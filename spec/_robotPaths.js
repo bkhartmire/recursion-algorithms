@@ -1,8 +1,7 @@
 const { expect } = require("chai");
 const { RobotPaths } = require("../src/robotPaths");
 
-describe("robotPaths", function() {
-  this.timeout(5000);
+describe("robotPaths", () => {
   it("should exist", () => {
     expect(RobotPaths).not.to.be.undefined;
   });
@@ -51,13 +50,7 @@ describe("robotPaths", function() {
   });
 
   it("should correctly identify the number of unique paths for 6x6 grid", (done) => {
-    const newRobotPaths = new RobotPaths(6);
-    const resolvingPromise = new Promise((resolve) => {
-      resolve(newRobotPaths.solve());
-    });
-    resolvingPromise.then((result) => {
-      expect(result).to.equal(1262816);
-      done();
-    });
+    const result = new RobotPaths(6).solve();
+    expect(result).to.equal(1262816);
   });
 });
