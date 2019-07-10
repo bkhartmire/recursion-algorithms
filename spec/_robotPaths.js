@@ -43,13 +43,12 @@ describe("robotPaths", () => {
     expect(result).to.equal(184);
   });
 
-  it("should correctly identify the number of unique paths for a 5x5 grid", (done) => {
+  it("should correctly identify the number of unique paths for a 5x5 grid", () => {
     const result = new RobotPaths(5).solve();
     expect(result).to.equal(8512);
-    done();
   });
 
-  it("should correctly identify the number of unique paths for 6x6 grid", (done) => {
+  it("should correctly identify the number of unique paths for 6x6 grid", () => {
     const result = new RobotPaths(6).solve();
     expect(result).to.equal(1262816);
   });
