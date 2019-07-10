@@ -1,7 +1,8 @@
 const { expect } = require("chai");
 const { RobotPaths } = require("../src/robotPaths");
 
-describe.only("robotPaths", () => {
+describe("robotPaths", function() {
+  this.timeout(5000);
   it("should exist", () => {
     expect(RobotPaths).not.to.be.undefined;
   });
@@ -43,13 +44,20 @@ describe.only("robotPaths", () => {
     expect(result).to.equal(184);
   });
 
-  it("should correctly identify the number of unique paths for a 5x5 grid", () => {
+  it("should correctly identify the number of unique paths for a 5x5 grid", (done) => {
     const result = new RobotPaths(5).solve();
     expect(result).to.equal(8512);
+    done();
   });
 
-  it("should correctly identify the number of unique paths for 6x6 grid", () => {
-    const result = new RobotPaths(6).solve();
-    expect(result).to.equal(1262816);
+  it("should correctly identify the number of unique paths for 6x6 grid", (done) => {
+    const newRobotPaths = new RobotPaths(6);
+    const resolvingPromise = new Promise((resolve) => {
+      resolve(newRobotPaths.solve());
+    });
+    resolvingPromise.then((result) => {
+      expect(result).to.equal(1262816);
+      done();
+    });
   });
 });
